@@ -1,0 +1,162 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="wsg.thesis_v10.HomePage"
+    android:background="@drawable/hp_background2">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Leader Boards (WIP)"
+                    android:id="@+id/leader_boards_button"
+                    android:background="#ff840000"
+                    android:layout_marginTop="24dp" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Achievements"
+                    android:id="@+id/achievements_button"
+                    android:background="#ff840000"
+                    android:layout_marginTop="14dp" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Quests (WIP)"
+                    android:id="@+id/quests_button"
+                    android:background="#ff840000"
+                    android:layout_marginTop="14dp" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Story (WIP)"
+                    android:id="@+id/story_button"
+                    android:layout_marginTop="14dp"
+                    android:background="#ff840000" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="About (WIP)"
+                    android:id="@+id/about_button"
+                    android:layout_marginTop="14dp"
+                    android:background="#ff840000" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tempSS"
+                    android:background="#00000000"
+                    android:textColor="#ff000000"
+                    android:text="Signal Strength (Dbm):"
+                    android:layout_marginTop="24dp"
+                    android:phoneNumber="true"
+                    android:layout_marginLeft="18dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tempGPS"
+                    android:background="#00000000"
+                    android:textColor="#ff000000"
+                    android:text="Coordinates (Lat/Long):"
+                    android:layout_marginTop="14dp"
+                    android:phoneNumber="true"
+                    android:layout_marginLeft="18dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tempDT"
+                    android:background="#00000000"
+                    android:textColor="#ff000000"
+                    android:text="YYYY/MM/DD/hh/mm:"
+                    android:layout_marginTop="14dp"
+                    android:phoneNumber="false"
+                    android:layout_marginLeft="18dp"
+                    android:password="false" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tempNetProvider"
+                    android:background="#00000000"
+                    android:textColor="#ff000000"
+                    android:text="Network Provider: "
+                    android:layout_marginTop="14dp"
+                    android:phoneNumber="false"
+                    android:layout_marginLeft="18dp"
+                    android:password="false" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tempPts"
+                    android:background="#00000000"
+                    android:textColor="#ff000000"
+                    android:text="Points: 0"
+                    android:layout_marginTop="14dp"
+                    android:phoneNumber="false"
+                    android:layout_marginLeft="18dp"
+                    android:password="false" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="78dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Send Signal"
+                android:id="@+id/signal_report_button"
+                android:background="#ff840000" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:id="@+id/logout_button"
+                android:background="#ff840000"
+                android:layout_marginTop="14dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
