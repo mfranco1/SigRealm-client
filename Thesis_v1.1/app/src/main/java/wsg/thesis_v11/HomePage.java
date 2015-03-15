@@ -114,7 +114,7 @@ public class HomePage extends Activity{
         final TextView mTemp5 = (TextView) findViewById(R.id.tempNetProvider);
 
         instant = new Time(Time.getCurrentTimezone());
-        String username = sharedPreferences.getString("username","");
+        final String username = sharedPreferences.getString("username","");
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -150,7 +150,7 @@ public class HomePage extends Activity{
         mLeaderBoardsButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(getApplicationContext(),Leaderboards.class));
+                startActivity(new Intent(getApplicationContext(),LeaderboardsPage.class));
             }
         });
 
@@ -179,6 +179,7 @@ public class HomePage extends Activity{
             }
         });
 
+        final AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
         final RequestParams params = new RequestParams();
         String deviceName = Build.MODEL +" "+ Build.DEVICE;
@@ -187,11 +188,33 @@ public class HomePage extends Activity{
         carrierName = manager.getNetworkOperatorName();
         mTemp5.setText("Network Provider: "+carrierName);
 
+        final JsonHttpResponseHandler getPoints = new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode,Header[] headers,JSONObject response){
+                try{
+                    String getPt = response.getString("score");
+                    mTemp4.setText("Points: "+getPt);
+                } catch(Exception e){
+                    mTemp4.setText("json points error");
+                }
+            }
+            @Override
+            public void onFailure(int statusCode,Header[] headers,Throwable e,JSONObject response){
+                mTemp4.setText("points did not work");
+            }
+        };
+        try{
+            String url = "http://128.199.134.172/api/get_public_user_profile?user="+username;
+            client.get(url,getPoints);
+        } catch(Exception e){
+            mTemp4.setText("points url error");
+        }
+
         Button mSendSignal = (Button) findViewById(R.id.signal_report_button);
         mSendSignal.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                AsyncHttpClient client = new AsyncHttpClient();
+
                 JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode,Header[] headers,JSONObject response){
@@ -230,6 +253,12 @@ public class HomePage extends Activity{
                 String token = sharedPreferences.getString("token","");
                 client.addHeader("Authorization","Token "+token);
                 client.post("http://128.199.134.172/api/send/",params, responseHandler);
+                try{
+                    String url = "http://128.199.134.172/api/get_public_user_profile?user="+username;
+                    client.get(url,getPoints);
+                } catch(Exception e){
+                    mTemp4.setText("points url error");
+                }
                 //RealNet netInterface = new RealNet();
                 //netInterface.execute(pairs);
             }
@@ -241,6 +270,7 @@ public class HomePage extends Activity{
             public void onClick(View view) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.remove("token");
+                editor.remove("username");
                 editor.commit();
                 startActivity(new Intent(getApplicationContext(), LoginPage.class));
                 finish();

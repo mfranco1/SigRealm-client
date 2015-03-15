@@ -35,6 +35,14 @@
             android:name=".AchievementsPage"
             android:label="@string/title_activity_achievements_page" >
         </activity>
+        <activity
+            android:name=".LeaderboardsPage"
+            android:label="@string/title_activity_leaderboards_page"
+            android:parentActivityName=".HomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="wsg.thesis_v11.HomePage" />
+        </activity>
     </application>
 
 </manifest>

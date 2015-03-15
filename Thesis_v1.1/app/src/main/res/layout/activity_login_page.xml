@@ -69,12 +69,11 @@
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_marginTop="20dp"
-                android:text="@string/action_sign_in_short"
-                android:textStyle="bold"
+                android:text="SIGN IN"
                 android:textColor="#ff000000"
-                android:background="#ff840000" />
+                android:background="#ff5fc1ef" />
 
             <AutoCompleteTextView
                 android:id="@+id/email2"
@@ -109,12 +108,11 @@
                 style="?android:textAppearanceSmall"
                 android:id="@+id/email_sign_up_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_marginTop="20dp"
-                android:text="Register"
-                android:textStyle="bold"
+                android:text="REGISTER"
                 android:textColor="#ff000000"
-                android:background="#ff840000"
+                android:background="#ff5fc1ef"
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
