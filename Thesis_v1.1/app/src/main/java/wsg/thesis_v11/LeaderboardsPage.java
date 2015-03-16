@@ -1,6 +1,7 @@
 package wsg.thesis_v11;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,6 +43,7 @@ public class LeaderboardsPage extends ActionBarActivity {
             space = space+" ";
         }
         headers.setText("Score"+space+"Username");
+        headers.setTextColor(Color.BLACK);
         imageContainer.addView(headers);
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -60,6 +62,7 @@ public class LeaderboardsPage extends ActionBarActivity {
                             space = space+" ";
                         }
                         position.setText(score+" points"+space+user);
+                        position.setTextColor(Color.BLACK);
                         imageContainer.addView(position);
                     }
                 } catch(Exception e){

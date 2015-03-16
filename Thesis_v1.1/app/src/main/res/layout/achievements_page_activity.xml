@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@drawable/ls_background1"
+    android:background="@drawable/ls_background3"
     tools:context="wsg.thesis_v11.AchievementsPage">
 
     <LinearLayout
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="Return Home"
         android:id="@+id/backButton"
-        android:background="#ff5fc1ef"
+        android:background="#cf5fc1ef"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:layout_gravity="center_horizontal"
