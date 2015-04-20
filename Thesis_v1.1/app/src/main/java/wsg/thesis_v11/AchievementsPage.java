@@ -62,13 +62,18 @@ public class AchievementsPage extends ActionBarActivity {
                         ImageView imageView = new ImageView(getApplicationContext());
                         JSONObject achievement = achievementList.getJSONObject(Integer.toString(i));
                         Boolean unlocked = achievement.getBoolean("unlocked");
+                        int id = 0;
                         if(unlocked){
                             String imgName = "quest"+Integer.toString(i);
-                            int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
+                            try{
+                                id = getResources().getIdentifier(imgName, "drawable", getPackageName());
+                            } catch(Exception e){
+                                id = getResources().getIdentifier("locked","drawable",getPackageName());
+                            }
                             imageView.setImageResource(id);
                         }
                         else{
-                            int id = getResources().getIdentifier("locked", "drawable", getPackageName());
+                            id = getResources().getIdentifier("locked", "drawable", getPackageName());
                             imageView.setImageResource(id);
                         }
                         imageContainer.addView(imageView);

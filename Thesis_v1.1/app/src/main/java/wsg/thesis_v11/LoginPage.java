@@ -94,9 +94,12 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
         setContentView(R.layout.activity_login_page);
 
         sharedPreferences = getSharedPreferences("Ampalaya", Context.MODE_PRIVATE);
+        String checkToken = sharedPreferences.getString("token",null);
+        if(checkToken != null){
+            startActivity(new Intent(getApplicationContext(), HomePage.class));
+            finish();
+        }
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
-        mEmailView2 = (AutoCompleteTextView) findViewById(R.id.email2);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -110,8 +113,6 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
                 return false;
             }
         });
-        mPasswordView2 = (EditText) findViewById(R.id.password2);
-        Log.d("","before button");
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -154,12 +155,12 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
         }
 
         // Reset errors.
-        mEmailView2.setError(null);
-        mPasswordView2.setError(null);
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView2.getText().toString();
-        String password = mPasswordView2.getText().toString();
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -167,29 +168,29 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView2.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView2;
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for no password
         if (TextUtils.isEmpty(password)) {
-            mPasswordView2.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView2;
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (!TextUtils.isEmpty(email) && !isEmailValid(email)) {
-            mEmailView2.setError(getString(R.string.error_field_required));
-            focusView = mEmailView2;
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
             cancel = true;
         }
 
         // Check for no email.
         if (TextUtils.isEmpty(email)){
-            mEmailView2.setError(getString(R.string.error_field_required));
-            focusView = mEmailView2;
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
             cancel = true;
         }
 
@@ -214,27 +215,28 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
                         tokenHolder2 = response;
                         String resp = tokenHolder2.getString("result");
                         if(resp.equals("success")){
-                            mEmailView.setText(mEmailView2.getText().toString());
-                            mPasswordView.setText(mPasswordView2.getText().toString());
-                            mEmailView2.setText("");
-                            mPasswordView2.setText("");
+                            mEmailView.setText(mEmailView.getText().toString());
+                            //mEmailView.setText("success");
+                            mPasswordView.setText(mPasswordView.getText().toString());
                         }
-                    } catch(Exception e){}
+                    } catch(Exception e){
+                        //mEmailView.setError("success but not");
+                    }
                 }
                 @Override
                 public void onFailure(int statusCode,Header[] headers,Throwable e,JSONObject response){
                     tokenHolder2 = response;
-                    mEmailView2.setError(tokenHolder2.toString());
+                    mEmailView.setError("failed to register");
                 }
             };
             RequestParams params = new RequestParams();
-            params.put("username",mEmailView2.getText().toString());
-            params.put("password",mPasswordView2.getText().toString());
+            params.put("username",mEmailView.getText().toString());
+            params.put("password",mPasswordView.getText().toString());
             params.put("email","niggaboi@fakemail.com");
             try{
                 client.post("http://128.199.134.172/api/register/",params, responseHandler);
             } catch(Exception e){
-                //failed to login
+                mEmailView.setError("check internet connection");
             }
         }
     }
@@ -328,7 +330,7 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
             try{
                 client.post("http://128.199.134.172/api/login/",params, responseHandler);
             } catch(Exception e){
-                //failed to login
+                mEmailView.setError("check internet connection");
             }
         }
     }

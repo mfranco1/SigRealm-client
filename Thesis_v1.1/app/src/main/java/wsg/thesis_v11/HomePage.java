@@ -112,6 +112,7 @@ public class HomePage extends Activity{
         final TextView mTemp3 = (TextView) findViewById(R.id.tempDT);
         final TextView mTemp4 = (TextView) findViewById(R.id.tempPts);
         final TextView mTemp5 = (TextView) findViewById(R.id.tempNetProvider);
+        final TextView mTemp6 = (TextView) findViewById(R.id.tempStatus);
 
         instant = new Time(Time.getCurrentTimezone());
         final String username = sharedPreferences.getString("username","");
@@ -162,11 +163,11 @@ public class HomePage extends Activity{
             }
         });
 
-        Button mQuests = (Button) findViewById(R.id.quests_button);
-        mQuests.setOnClickListener(new OnClickListener() {
+        Button mProfile = (Button) findViewById(R.id.profile_button);
+        mProfile.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(getApplicationContext(),QuestsPage.class));
+                //startActivity(new Intent(getApplicationContext(),ProfilePage.class));
             }
         });
 
@@ -219,10 +220,12 @@ public class HomePage extends Activity{
                     @Override
                     public void onSuccess(int statusCode,Header[] headers,JSONObject response){
                         //mTemp.setText(response.toString());
+                        mTemp6.setText("Signal Report Status: Successfully Sent");
                     }
                     @Override
                     public void onFailure(int statusCode,Header[] headers,Throwable e,JSONObject response){
                         //mTemp.setText(response.toString());
+                        mTemp6.setText("Signal Report Status: Failed to Send");
                     }
                 };
 
@@ -235,13 +238,27 @@ public class HomePage extends Activity{
 
                 int SignalStrength = pslistener.getSS();
                 if(SignalStrength == 0) {
-                    mTemp.setText("No Signal");
+                    mTemp.setText("Signal Strength: No Signal");
                 }
-                else
-                    mTemp.setText("Signal Strength: " + Integer.toString(SignalStrength) + "dBm");
-
+                else{
+                    String ssQuality = "(Average)";
+                    if(SignalStrength > -71){
+                        ssQuality = "(Excellent)";
+                    }
+                    if(SignalStrength < -70 && SignalStrength > -81){
+                        ssQuality = "(Great)";
+                    }
+                    if(SignalStrength < -80 && SignalStrength > -91){
+                        ssQuality = "(Good)";
+                    }
+                    if(SignalStrength < -100){
+                        ssQuality = "(Poor)";
+                    }
+                    mTemp.setText("Signal Strength: " + Integer.toString(SignalStrength) + "dBm " + ssQuality);
+                }
                 params.put("signal_strength", Integer.toString(SignalStrength));
-                params.put("carrier_string", "AmpalayaNet");
+                //params.put("carrier_string", "AmpalayaNet");
+                params.put("carrier_string", carrierName);
                 params.put("gps_lat",Double.toString(lat));
                 params.put("gps_long",Double.toString(lng));
                 mTemp2.setText("GPS latitude: "+lat+"\nGPS longitude: "+lng);
@@ -257,7 +274,7 @@ public class HomePage extends Activity{
                     String url = "http://128.199.134.172/api/get_public_user_profile?user="+username;
                     client.get(url,getPoints);
                 } catch(Exception e){
-                    mTemp4.setText("points url error");
+                    mTemp4.setError("points url error");
                 }
                 //RealNet netInterface = new RealNet();
                 //netInterface.execute(pairs);
