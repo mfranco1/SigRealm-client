@@ -55,14 +55,14 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
+                android:hint="Password"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:background="#cc9dbacc"
+                android:background="#ccccba9d"
                 android:layout_marginTop="14dp"
                 android:textColor="#ff000000" />
 
@@ -85,7 +85,7 @@
                 android:layout_marginTop="20dp"
                 android:text="REGISTER"
                 android:textColor="#ff000000"
-                android:background="#cf5fc1ef"
+                android:background="#cfff6600"
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>

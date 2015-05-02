@@ -336,10 +336,10 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
     }
     private boolean isEmailValid(String email) {
         Boolean valid = true;
+        valid = email.matches("[a-zA-Z0-9_@+.-]*");
         if(email.length() > 20){
             valid = false;
         }
-        valid = email.matches("[a-zA-Z0-9_@+.-]*");
         return valid;
     }
 

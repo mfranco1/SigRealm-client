@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:text="Achievements"
                     android:id="@+id/achievements_button"
-                    android:background="#cf5fc1ef"
+                    android:background="#cfff6600"
                     android:layout_marginTop="14dp" />
 
                 <Button
@@ -54,7 +54,7 @@
                     android:text="Story (WIP)"
                     android:id="@+id/story_button"
                     android:layout_marginTop="14dp"
-                    android:background="#cf5fc1ef" />
+                    android:background="#cfff6600" />
 
                 <Button
                     android:layout_width="fill_parent"
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tempSS"
-                    android:background="#00000000"
+                    android:background="#cfff6600"
                     android:textColor="#ff000000"
                     android:text="Signal Strength (Dbm):"
                     android:layout_marginTop="24dp"
@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tempGPS"
-                    android:background="#00000000"
+                    android:background="#cf5fc1ef"
                     android:textColor="#ff000000"
                     android:text="Coordinates (Lat/Long):"
                     android:layout_marginTop="14dp"
@@ -104,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tempDT"
-                    android:background="#00000000"
+                    android:background="#cfff6600"
                     android:textColor="#ff000000"
                     android:text="YYYY/MM/DD/hh/mm:"
                     android:layout_marginTop="14dp"
@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tempNetProvider"
-                    android:background="#00000000"
+                    android:background="#cf5fc1ef"
                     android:textColor="#ff000000"
                     android:text="Network Provider: "
                     android:layout_marginTop="14dp"
@@ -128,7 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tempPts"
-                    android:background="#00000000"
+                    android:background="#cfff6600"
                     android:textColor="#ff000000"
                     android:text="Points: 0"
                     android:layout_marginTop="14dp"
@@ -141,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:text="Signal Report Status: "
                     android:id="@+id/tempStatus"
-                    android:background="#00000000"
+                    android:background="#cf5fc1ef"
                     android:textColor="#ff000000"
                     android:layout_marginTop="14dp"
                     android:phoneNumber="false"
@@ -162,7 +162,7 @@
                 android:layout_height="match_parent"
                 android:text="SEND SIGNAL"
                 android:id="@+id/signal_report_button"
-                android:background="#cf5fc1ef" />
+                android:background="#cfff6600" />
 
             <Button
                 android:layout_width="fill_parent"

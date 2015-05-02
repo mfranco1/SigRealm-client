@@ -37,6 +37,41 @@
 
                 </LinearLayout>
 
+                <TableLayout
+                    android:id="@+id/listContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="*">
+
+                    <TableRow
+                        android:id="@+id/usernamePts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:id="@+id/usernameLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="USERNAME"
+                            android:gravity="center"
+                            android:background="#FF000000"
+                            android:textColor="#FFFFFFFF"
+                            />
+
+                        <TextView
+                            android:id="@+id/ptsLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="POINTS"
+                            android:gravity="center"
+                            android:background="#FF000000"
+                            android:textColor="#FFFFFFFF"
+                            />
+
+                    </TableRow>
+                </TableLayout>
+
             </RelativeLayout>
         </ScrollView>
 

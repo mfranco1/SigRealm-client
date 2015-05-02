@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -36,15 +39,8 @@ public class LeaderboardsPage extends ActionBarActivity {
             }
         });
 
-        final LinearLayout imageContainer = (LinearLayout) findViewById(R.id.imageContainer);
         final TextView mTemp4 = (TextView) findViewById(R.id.errorDisplay);
-        TextView headers = new TextView(getApplicationContext());
-        for(int j=0;j<49;j++){
-            space = space+" ";
-        }
-        headers.setText("Score"+space+"Username");
-        headers.setTextColor(Color.BLACK);
-        imageContainer.addView(headers);
+        final TableLayout imgContainer = (TableLayout) findViewById(R.id.listContainer);
 
         AsyncHttpClient client = new AsyncHttpClient();
         JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler(){
@@ -52,18 +48,34 @@ public class LeaderboardsPage extends ActionBarActivity {
             public void onSuccess(int statusCode,Header[] headers,JSONObject response){
                 try{
                     for(int i=1;i<=response.length();i++){
-                        TextView position = new TextView(getApplicationContext());
+                        TextView position1 = new TextView(getApplicationContext());
+                        TextView position2 = new TextView(getApplicationContext());
+                        TableRow newRow = new TableRow(getApplicationContext());
+
                         JSONObject place = response.getJSONObject(Integer.toString(i));
+
                         String user = place.getString("user");
                         String score = place.getString("score");
-                        space = "";
-                        int x = 46-score.length();
-                        for(int j=0;j<x;j++){
-                            space = space+" ";
-                        }
-                        position.setText(score+" points"+space+user);
-                        position.setTextColor(Color.BLACK);
-                        imageContainer.addView(position);
+
+                        position1.setText(user);
+                        position1.setTextColor(Color.BLACK);
+                        position1.setGravity(Gravity.CENTER);
+                        if(i%2 == 0)
+                            position1.setBackgroundColor(Color.parseColor("#cf5fc1ef"));
+                        else
+                            position1.setBackgroundColor(Color.parseColor("#cfff6600"));
+
+                        position2.setText(score);
+                        position2.setTextColor(Color.BLACK);
+                        position2.setGravity(Gravity.CENTER);
+                        if(i%2 != 0)
+                            position2.setBackgroundColor(Color.parseColor("#cf5fc1ef"));
+                        else
+                            position2.setBackgroundColor(Color.parseColor("#cfff6600"));
+
+                        newRow.addView(position1);
+                        newRow.addView(position2);
+                        imgContainer.addView(newRow);
                     }
                 } catch(Exception e){
                     mTemp4.setText("Leaderboard listing error");
