@@ -85,10 +85,7 @@ public class HomePage extends Activity{
     Time instant;
     LocationManager locationManager;
     LocationListener locationListener;
-    String provider;
     String carrierName;
-    double lat;
-    double lng;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -117,35 +114,6 @@ public class HomePage extends Activity{
         instant = new Time(Time.getCurrentTimezone());
         final String username = sharedPreferences.getString("username","");
 
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                lat = location.getLatitude();
-                lng = location.getLongitude();
-                provider = location.getProvider();
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
-        /*if(LocationManager.NETWORK_PROVIDER != null) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-        }*/
 
         Button mLeaderBoardsButton = (Button) findViewById(R.id.leader_boards_button);
         mLeaderBoardsButton.setOnClickListener(new OnClickListener() {
@@ -179,6 +147,9 @@ public class HomePage extends Activity{
 
             }
         });
+        /*mProfile.setVisibility(View.GONE);
+        mStory.setVisibility(View.GONE);
+        mAbout.setVisibility(View.GONE);*/
 
         final AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -256,12 +227,13 @@ public class HomePage extends Activity{
                     }
                     mTemp.setText("Signal Strength: " + Integer.toString(SignalStrength) + "dBm " + ssQuality);
                 }
+                double[] gps = getGPS();
                 params.put("signal_strength", Integer.toString(SignalStrength));
                 //params.put("carrier_string", "AmpalayaNet");
                 params.put("carrier_string", carrierName);
-                params.put("gps_lat",Double.toString(lat));
-                params.put("gps_long",Double.toString(lng));
-                mTemp2.setText("GPS latitude: "+lat+"\nGPS longitude: "+lng);
+                params.put("gps_lat",Double.toString(gps[0]));
+                params.put("gps_long",Double.toString(gps[1]));
+                mTemp2.setText("GPS latitude: "+Double.toString(gps[0])+"\nGPS longitude: "+Double.toString(gps[1]));
 
                 instant.setToNow();
                 String timeStmp = instant.format("%Y-%m-%d %H:%M:%S");
@@ -276,8 +248,6 @@ public class HomePage extends Activity{
                 } catch(Exception e){
                     mTemp4.setError("points url error");
                 }
-                //RealNet netInterface = new RealNet();
-                //netInterface.execute(pairs);
             }
         });
 
@@ -295,6 +265,26 @@ public class HomePage extends Activity{
         });
     }
 
+    private double[] getGPS() {
+        LocationManager lm = (LocationManager) getSystemService(
+                Context.LOCATION_SERVICE);
+        List<String> providers = lm.getProviders(true);
+
+        Location l = null;
+
+        for (int i=providers.size()-1; i>=0; i--) {
+            l = lm.getLastKnownLocation(providers.get(i));
+            if (l != null) break;
+        }
+
+        double[] gps = new double[2];
+        if (l != null) {
+            gps[0] = l.getLatitude();
+            gps[1] = l.getLongitude();
+        }
+
+        return gps;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -318,7 +308,7 @@ public class HomePage extends Activity{
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        locationManager.removeUpdates(locationListener);
+        //locationManager.removeUpdates(locationListener);
     }
 }
 
@@ -341,40 +331,4 @@ class myPhoneStateListener extends PhoneStateListener {
             return SignalStrength;
     }
 
-}
-
-class RealNet extends AsyncTask<ArrayList<NameValuePair>, Integer, Integer> {
-
-    protected Integer doInBackground(ArrayList<NameValuePair>... pairs) {
-
-        final HttpClient client = new DefaultHttpClient();
-
-        try{
-            String SetServerString = "";
-            HttpGet getter = new HttpGet("http://128.199.134.172/data/submit/");
-            ResponseHandler<String> handler = new BasicResponseHandler();
-            SetServerString = client .execute(getter,handler);
-            System.out.println(SetServerString);
-        } catch (Exception e){
-            System.out.println("Error in httpGet");
-        }
-
-        final HttpPost poster = new HttpPost("http://128.199.134.172/data/submit/");
-        try {
-            poster.setEntity(new UrlEncodedFormEntity(pairs[0]));
-            HttpResponse response = client.execute(poster);
-        } catch (Exception e){
-            System.out.println("Error in httpPost");
-        }
-
-        return new Integer(0);
-    }
-
-    protected void onProgressUpdate(Integer... progress) {
-
-    }
-
-    protected void onPostExecute(Long result) {
-
-    }
 }

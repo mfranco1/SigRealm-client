@@ -218,6 +218,7 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
                             mEmailView.setText(mEmailView.getText().toString());
                             //mEmailView.setText("success");
                             mPasswordView.setText(mPasswordView.getText().toString());
+                            attemptLogin();
                         }
                     } catch(Exception e){
                         //mEmailView.setError("success but not");
