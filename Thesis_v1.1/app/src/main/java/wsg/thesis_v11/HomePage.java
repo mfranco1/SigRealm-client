@@ -266,22 +266,52 @@ public class HomePage extends Activity{
     }
 
     private double[] getGPS() {
-        LocationManager lm = (LocationManager) getSystemService(
-                Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         List<String> providers = lm.getProviders(true);
-
         Location l = null;
+        final double[] gps = new double[2];
+
+        LocationListener ll = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                gps[0] = location.getLatitude();
+                gps[1] = location.getLongitude();
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
 
         for (int i=providers.size()-1; i>=0; i--) {
-            l = lm.getLastKnownLocation(providers.get(i));
-            if (l != null) break;
+            lm.requestLocationUpdates(providers.get(i),0,0,ll);
+            //l = lm.getLastKnownLocation(providers.get(i));
+            if(gps[0] != 0 && gps[1] != 0) break;
+            //if (l != null) break;
+        }
+        l = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if(gps[0] == 0 && gps[1] == 0){
+            if (l != null) {
+                gps[0] = l.getLatitude();
+                gps[1] = l.getLongitude();
+            }
         }
 
-        double[] gps = new double[2];
-        if (l != null) {
+        /*if (l != null) {
             gps[0] = l.getLatitude();
             gps[1] = l.getLongitude();
-        }
+        }*/
 
         return gps;
     }
