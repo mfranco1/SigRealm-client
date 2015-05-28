@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginPage"
-    android:background="@drawable/ls_background3">
+    >android:background="@drawable/ls_background3"
 
     <!-- Login progress -->
     <ProgressBar
@@ -22,14 +22,14 @@
 
     <ScrollView
         android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         >
 
         <LinearLayout
             android:id="@+id/email_login_form"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical"
             android:gravity="bottom">
 
@@ -62,7 +62,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:background="#ccccba9d"
+                android:background="#cc9dbacc"
                 android:layout_marginTop="14dp"
                 android:textColor="#ff000000" />
 
@@ -73,8 +73,8 @@
                 android:layout_height="33dp"
                 android:layout_marginTop="20dp"
                 android:text="SIGN IN"
-                android:textColor="#ff000000"
-                android:background="#cf5fc1ef"
+                android:textColor="#ffffffff"
+                android:background="@drawable/roundbutton"
                 android:layout_gravity="center_horizontal"/>
 
             <Button
@@ -84,8 +84,8 @@
                 android:layout_height="33dp"
                 android:layout_marginTop="20dp"
                 android:text="REGISTER"
-                android:textColor="#ff000000"
-                android:background="#cfff6600"
+                android:textColor="#ffffffff"
+                android:background="@drawable/roundbutton"
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>

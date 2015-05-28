@@ -2,8 +2,10 @@ package wsg.thesis_v11;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,21 +60,49 @@ public class LeaderboardsPage extends ActionBarActivity {
                         String score = place.getString("score");
 
                         position1.setText(user);
-                        position1.setTextColor(Color.BLACK);
-                        position1.setGravity(Gravity.CENTER);
-                        if(i%2 == 0)
-                            position1.setBackgroundColor(Color.parseColor("#cf5fc1ef"));
-                        else
-                            position1.setBackgroundColor(Color.parseColor("#cfff6600"));
-
                         position2.setText(score);
-                        position2.setTextColor(Color.BLACK);
+                        position1.setTextColor(Color.WHITE);
+                        position2.setTextColor(Color.WHITE);
+                        position1.setGravity(Gravity.CENTER);
                         position2.setGravity(Gravity.CENTER);
-                        if(i%2 != 0)
-                            position2.setBackgroundColor(Color.parseColor("#cf5fc1ef"));
-                        else
-                            position2.setBackgroundColor(Color.parseColor("#cfff6600"));
-
+                        if(i%2 == 0){
+                            position1.setBackgroundColor(Color.parseColor("#8dbab3"));
+                            position2.setBackgroundColor(Color.parseColor("#8dbab3"));
+                        }
+                        else{
+                            position1.setBackgroundColor(Color.parseColor("#58857e"));
+                            position2.setBackgroundColor(Color.parseColor("#58857e"));
+                        }
+                        if(i<4){
+                            position1.setPadding(0,7,0,7);
+                            position2.setPadding(0,7,0,7);
+                        }
+                            position1.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                            position2.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                        if(i==1){
+                            position1.setBackgroundColor(Color.parseColor("#ffd700"));
+                            position2.setBackgroundColor(Color.parseColor("#ffd700"));
+                            position1.setTextColor(Color.BLACK);
+                            position2.setTextColor(Color.BLACK);
+                            position1.setTypeface(Typeface.DEFAULT_BOLD);
+                            position2.setTypeface(Typeface.DEFAULT_BOLD);
+                        }
+                        if(i==2){
+                            position1.setBackgroundColor(Color.parseColor("#c0c0c0"));
+                            position2.setBackgroundColor(Color.parseColor("#c0c0c0"));
+                            position1.setTextColor(Color.BLACK);
+                            position2.setTextColor(Color.BLACK);
+                            position1.setTypeface(Typeface.DEFAULT_BOLD);
+                            position2.setTypeface(Typeface.DEFAULT_BOLD);
+                        }
+                        if(i==3){
+                            position1.setBackgroundColor(Color.parseColor("#cd7f32"));
+                            position2.setBackgroundColor(Color.parseColor("#cd7f32"));
+                            position1.setTextColor(Color.BLACK);
+                            position2.setTextColor(Color.BLACK);
+                            position1.setTypeface(Typeface.DEFAULT_BOLD);
+                            position2.setTypeface(Typeface.DEFAULT_BOLD);
+                        }
                         newRow.addView(position1);
                         newRow.addView(position2);
                         imgContainer.addView(newRow);

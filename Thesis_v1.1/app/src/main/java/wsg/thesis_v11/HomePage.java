@@ -147,9 +147,9 @@ public class HomePage extends Activity{
 
             }
         });
-        /*mProfile.setVisibility(View.GONE);
+        mProfile.setVisibility(View.GONE);
         mStory.setVisibility(View.GONE);
-        mAbout.setVisibility(View.GONE);*/
+        mAbout.setVisibility(View.GONE);
 
         final AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -182,7 +182,7 @@ public class HomePage extends Activity{
             mTemp4.setText("points url error");
         }
 
-        Button mSendSignal = (Button) findViewById(R.id.signal_report_button);
+        final Button mSendSignal = (Button) findViewById(R.id.signal_report_button);
         mSendSignal.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,7 +196,13 @@ public class HomePage extends Activity{
                     @Override
                     public void onFailure(int statusCode,Header[] headers,Throwable e,JSONObject response){
                         //mTemp.setText(response.toString());
-                        mTemp6.setText("Signal Report Status: Failed to Send");
+                        try{
+                            mTemp6.setText("Signal Report Status: "+response.getString("message"));
+                            mSendSignal.setError(response.getString("message"));
+                        } catch(Exception e2){
+                            mTemp6.setText("Signal Report Status: Failed to Send");
+                        }
+
                     }
                 };
 
