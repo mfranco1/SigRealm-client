@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginPage"
-    >android:background="@drawable/ls_background3"
+    >android:background="@drawable/ls_bg"
 
     <!-- Login progress -->
     <ProgressBar
@@ -34,26 +34,30 @@
             android:gravity="bottom">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="340dp"
+                android:layout_height="120dp"
                 android:id="@+id/Logo"
-                android:scaleType="center"/>
+                android:src="@drawable/logo"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                />
 
             <AutoCompleteTextView
                 android:id="@+id/email"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:hint="Username"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:background="#cc9dbacc"
-                android:layout_marginTop="124dp"
-                android:textColor="#ff000000" />
+                android:background="#dddadada"
+                android:layout_marginTop="40dp"
+                android:textColor="#ff000000"
+                android:layout_gravity="center_horizontal"/>
 
             <EditText
                 android:id="@+id/password"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:imeActionId="@+id/login"
@@ -62,14 +66,15 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:background="#cc9dbacc"
+                android:background="#dddadada"
                 android:layout_marginTop="14dp"
-                android:textColor="#ff000000" />
+                android:textColor="#ff000000"
+                android:layout_gravity="center_horizontal"/>
 
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
-                android:layout_width="195dp"
+                android:layout_width="160dp"
                 android:layout_height="33dp"
                 android:layout_marginTop="20dp"
                 android:text="SIGN IN"
@@ -80,9 +85,9 @@
             <Button
                 style="?android:textAppearanceSmall"
                 android:id="@+id/email_sign_up_button"
-                android:layout_width="195dp"
+                android:layout_width="160dp"
                 android:layout_height="33dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:text="REGISTER"
                 android:textColor="#ffffffff"
                 android:background="@drawable/roundbutton"

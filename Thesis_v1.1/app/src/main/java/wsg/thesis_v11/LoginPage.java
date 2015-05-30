@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.graphics.Typeface;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.*;
@@ -93,6 +94,9 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+        Drawable back = getResources().getDrawable(R.drawable.ls_bg);
+        getWindow().setBackgroundDrawable(back);
+
         sharedPreferences = getSharedPreferences("Ampalaya", Context.MODE_PRIVATE);
         String checkToken = sharedPreferences.getString("token",null);
         if(checkToken != null){
@@ -114,6 +118,8 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
             }
         });
 
+        Typeface face = Typeface.createFromAsset(getAssets(),"OpenSans-Semibold.ttf");
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -121,6 +127,7 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
                 attemptLogin();
             }
         });
+        mEmailSignInButton.setTypeface(face);
 
         Button mEmailSignUpButton = (Button) findViewById(R.id.email_sign_up_button);
         mEmailSignUpButton.setOnClickListener(new OnClickListener() {
@@ -129,6 +136,7 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
                attemptSignup();
             }
         });
+        mEmailSignUpButton.setTypeface(face);
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -300,7 +308,7 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
                     } catch(Exception e){
 
                     }*/
-                    showProgress(true);
+                    //showProgress(true);
                     tokenHolder = response;
                     try{
                         String token = tokenHolder.getString("token");
@@ -309,6 +317,7 @@ public class LoginPage extends Activity implements LoaderCallbacks<Cursor>{
                         editor.putString("username",email);
                         editor.commit();
                         startActivity(new Intent(getApplicationContext(), HomePage.class));
+                        overridePendingTransition(R.anim.pull_in_top, R.anim.push_out_top);
                         finish();
                     } catch(Exception e){
 

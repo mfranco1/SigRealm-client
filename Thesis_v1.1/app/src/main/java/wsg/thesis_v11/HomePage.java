@@ -19,6 +19,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -110,10 +112,10 @@ public class HomePage extends Activity{
         final TextView mTemp4 = (TextView) findViewById(R.id.tempPts);
         final TextView mTemp5 = (TextView) findViewById(R.id.tempNetProvider);
         final TextView mTemp6 = (TextView) findViewById(R.id.tempStatus);
+        statusCheck();
 
         instant = new Time(Time.getCurrentTimezone());
         final String username = sharedPreferences.getString("username","");
-
 
         Button mLeaderBoardsButton = (Button) findViewById(R.id.leader_boards_button);
         mLeaderBoardsButton.setOnClickListener(new OnClickListener() {
@@ -186,73 +188,75 @@ public class HomePage extends Activity{
         mSendSignal.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(statusCheck()) {
 
-                JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler(){
-                    @Override
-                    public void onSuccess(int statusCode,Header[] headers,JSONObject response){
-                        //mTemp.setText(response.toString());
-                        mTemp6.setText("Signal Report Status: Successfully Sent");
-                    }
-                    @Override
-                    public void onFailure(int statusCode,Header[] headers,Throwable e,JSONObject response){
-                        //mTemp.setText(response.toString());
-                        try{
-                            mTemp6.setText("Signal Report Status: "+response.getString("message"));
-                            mSendSignal.setError(response.getString("message"));
-                        } catch(Exception e2){
-                            mTemp6.setText("Signal Report Status: Failed to Send");
+                    JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            //mTemp.setText(response.toString());
+                            mTemp6.setText("Signal Report Status: Successfully Sent");
+                            mSendSignal.setError(null);
                         }
 
-                    }
-                };
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response) {
+                            //mTemp.setText(response.toString());
+                            try {
+                                mTemp6.setText("Signal Report Status: " + response.getString("message"));
+                                mSendSignal.setError(response.getString("message"));
+                            } catch (Exception e2) {
+                                mTemp6.setText("Signal Report Status: Failed to Send");
+                            }
 
-                if(carrierName.length()>0){
-                    mTemp5.setText("Network Provider: "+carrierName);
-                }
-                else{
-                    mTemp5.setText("Network Provider: No Service");
-                }
+                        }
+                    };
 
-                int SignalStrength = pslistener.getSS();
-                if(SignalStrength == 0) {
-                    mTemp.setText("Signal Strength: No Signal");
-                }
-                else{
-                    String ssQuality = "(Average)";
-                    if(SignalStrength > -71){
-                        ssQuality = "(Excellent)";
+                    if (carrierName.length() > 0) {
+                        mTemp5.setText("Network Provider: " + carrierName);
+                    } else {
+                        mTemp5.setText("Network Provider: No Service");
                     }
-                    if(SignalStrength < -70 && SignalStrength > -81){
-                        ssQuality = "(Great)";
-                    }
-                    if(SignalStrength < -80 && SignalStrength > -91){
-                        ssQuality = "(Good)";
-                    }
-                    if(SignalStrength < -100){
-                        ssQuality = "(Poor)";
-                    }
-                    mTemp.setText("Signal Strength: " + Integer.toString(SignalStrength) + "dBm " + ssQuality);
-                }
-                double[] gps = getGPS();
-                params.put("signal_strength", Integer.toString(SignalStrength));
-                //params.put("carrier_string", "AmpalayaNet");
-                params.put("carrier_string", carrierName);
-                params.put("gps_lat",Double.toString(gps[0]));
-                params.put("gps_long",Double.toString(gps[1]));
-                mTemp2.setText("GPS latitude: "+Double.toString(gps[0])+"\nGPS longitude: "+Double.toString(gps[1]));
 
-                instant.setToNow();
-                String timeStmp = instant.format("%Y-%m-%d %H:%M:%S");
-                mTemp3.setText(timeStmp+"\n"+instant.timezone);
-                params.put("timestamp", timeStmp);
-                String token = sharedPreferences.getString("token","");
-                client.addHeader("Authorization","Token "+token);
-                client.post("http://128.199.134.172/api/send/",params, responseHandler);
-                try{
-                    String url = "http://128.199.134.172/api/get_public_user_profile?user="+username;
-                    client.get(url,getPoints);
-                } catch(Exception e){
-                    mTemp4.setError("points url error");
+                    int SignalStrength = pslistener.getSS();
+                    if (SignalStrength == 0) {
+                        mTemp.setText("Signal Strength: No Signal");
+                    } else {
+                        String ssQuality = "(Average)";
+                        if (SignalStrength > -71) {
+                            ssQuality = "(Excellent)";
+                        }
+                        if (SignalStrength < -70 && SignalStrength > -81) {
+                            ssQuality = "(Great)";
+                        }
+                        if (SignalStrength < -80 && SignalStrength > -91) {
+                            ssQuality = "(Good)";
+                        }
+                        if (SignalStrength < -100) {
+                            ssQuality = "(Poor)";
+                        }
+                        mTemp.setText("Signal Strength: " + Integer.toString(SignalStrength) + "dBm " + ssQuality);
+                    }
+                    double[] gps = getGPS();
+                    params.put("signal_strength", Integer.toString(SignalStrength));
+                    //params.put("carrier_string", "AmpalayaNet");
+                    params.put("carrier_string", carrierName);
+                    params.put("gps_lat", Double.toString(gps[0]));
+                    params.put("gps_long", Double.toString(gps[1]));
+                    mTemp2.setText("GPS latitude: " + Double.toString(gps[0]) + "\nGPS longitude: " + Double.toString(gps[1]));
+
+                    instant.setToNow();
+                    String timeStmp = instant.format("%Y-%m-%d %H:%M:%S");
+                    mTemp3.setText(timeStmp + "\n" + instant.timezone);
+                    params.put("timestamp", timeStmp);
+                    String token = sharedPreferences.getString("token", "");
+                    client.addHeader("Authorization", "Token " + token);
+                    client.post("http://128.199.134.172/api/send/", params, responseHandler);
+                    try {
+                        String url = "http://128.199.134.172/api/get_public_user_profile?user=" + username;
+                        client.get(url, getPoints);
+                    } catch (Exception e) {
+                        mTemp4.setError("points url error");
+                    }
                 }
             }
         });
@@ -269,6 +273,33 @@ public class HomePage extends Activity{
                 finish();
             }
         });
+    }
+
+    public boolean statusCheck(){
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if(!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) || !manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            buildAlertMessageNoGps();
+        }
+        else
+            return true;
+        return false;
+    }
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your Location Service (GPS/Wi-fi Location Access) needs to be enabled for Signal Hunter to work?")
+                .setCancelable(false)
+                .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog,  final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Piss Off", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private double[] getGPS() {
