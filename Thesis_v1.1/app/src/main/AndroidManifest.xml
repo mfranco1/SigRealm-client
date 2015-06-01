@@ -33,19 +33,11 @@
         </activity>
         <activity
             android:name=".AchievementsPage"
-            android:label="Achievements"
-            android:parentActivityName=".HomePage">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="wsg.thesis_v11.HomePage" />
+            android:label="Achievements">
         </activity>
         <activity
             android:name=".LeaderboardsPage"
-            android:label="Leaderboards"
-            android:parentActivityName=".HomePage" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="wsg.thesis_v11.HomePage" />
+            android:label="Leaderboards">
         </activity>
     </application>
 

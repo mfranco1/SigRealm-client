@@ -33,7 +33,16 @@ public class LeaderboardsPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leaderboards_page_activity);
 
-        Button back = (Button) findViewById(R.id.backButton);
+        Button mAchievements = (Button) findViewById(R.id.achievements_button_a);
+        mAchievements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),AchievementsPage.class));
+                overridePendingTransition(0,0);
+            }
+        });
+
+        Button back = (Button) findViewById(R.id.homebutton_a);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,12 +75,12 @@ public class LeaderboardsPage extends ActionBarActivity {
                         position1.setGravity(Gravity.CENTER);
                         position2.setGravity(Gravity.CENTER);
                         if(i%2 == 0){
-                            position1.setBackgroundColor(Color.parseColor("#8dbab3"));
-                            position2.setBackgroundColor(Color.parseColor("#8dbab3"));
+                            position1.setBackgroundColor(Color.parseColor("#AAE8DD"));
+                            position2.setBackgroundColor(Color.parseColor("#AAE8DD"));
                         }
                         else{
-                            position1.setBackgroundColor(Color.parseColor("#58857e"));
-                            position2.setBackgroundColor(Color.parseColor("#58857e"));
+                            position1.setBackgroundColor(Color.parseColor("#8dbab3"));
+                            position2.setBackgroundColor(Color.parseColor("#8dbab3"));
                         }
                         if(i<4){
                             position1.setPadding(0,7,0,7);

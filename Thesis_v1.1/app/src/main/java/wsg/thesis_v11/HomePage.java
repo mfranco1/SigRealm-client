@@ -108,10 +108,8 @@ public class HomePage extends Activity{
 
         final TextView mTemp = (TextView) findViewById(R.id.tempSS);
         final TextView mTemp2 = (TextView) findViewById(R.id.tempGPS);
-        final TextView mTemp3 = (TextView) findViewById(R.id.tempDT);
         final TextView mTemp4 = (TextView) findViewById(R.id.tempPts);
         final TextView mTemp5 = (TextView) findViewById(R.id.tempNetProvider);
-        final TextView mTemp6 = (TextView) findViewById(R.id.tempStatus);
         statusCheck();
 
         instant = new Time(Time.getCurrentTimezone());
@@ -132,26 +130,6 @@ public class HomePage extends Activity{
                startActivity(new Intent(getApplicationContext(),AchievementsPage.class));
             }
         });
-
-        Button mProfile = (Button) findViewById(R.id.profile_button);
-        mProfile.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //startActivity(new Intent(getApplicationContext(),ProfilePage.class));
-            }
-        });
-
-        Button mStory = (Button) findViewById(R.id.story_button);
-        Button mAbout = (Button) findViewById(R.id.about_button);
-        mAbout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        mProfile.setVisibility(View.GONE);
-        mStory.setVisibility(View.GONE);
-        mAbout.setVisibility(View.GONE);
 
         final AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -194,18 +172,18 @@ public class HomePage extends Activity{
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             //mTemp.setText(response.toString());
-                            mTemp6.setText("Signal Report Status: Successfully Sent");
-                            mSendSignal.setError(null);
+                            //mTemp6.setText("Signal Report Status: Successfully Sent");
+                            //mSendSignal.setError(null);
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response) {
                             //mTemp.setText(response.toString());
                             try {
-                                mTemp6.setText("Signal Report Status: " + response.getString("message"));
-                                mSendSignal.setError(response.getString("message"));
+                                String temp = response.getString("message");
+                                buildAlertMessageLimitReached();
                             } catch (Exception e2) {
-                                mTemp6.setText("Signal Report Status: Failed to Send");
+                                buildAlertMessageCheckInternet();
                             }
 
                         }
@@ -221,18 +199,18 @@ public class HomePage extends Activity{
                     if (SignalStrength == 0) {
                         mTemp.setText("Signal Strength: No Signal");
                     } else {
-                        String ssQuality = "(Average)";
+                        String ssQuality = "\n(Average)";
                         if (SignalStrength > -71) {
-                            ssQuality = "(Excellent)";
+                            ssQuality = "\n(Excellent)";
                         }
                         if (SignalStrength < -70 && SignalStrength > -81) {
-                            ssQuality = "(Great)";
+                            ssQuality = "\n(Great)";
                         }
                         if (SignalStrength < -80 && SignalStrength > -91) {
-                            ssQuality = "(Good)";
+                            ssQuality = "\n(Good)";
                         }
                         if (SignalStrength < -100) {
-                            ssQuality = "(Poor)";
+                            ssQuality = "\n(Poor)";
                         }
                         mTemp.setText("Signal Strength: " + Integer.toString(SignalStrength) + "dBm " + ssQuality);
                     }
@@ -246,7 +224,7 @@ public class HomePage extends Activity{
 
                     instant.setToNow();
                     String timeStmp = instant.format("%Y-%m-%d %H:%M:%S");
-                    mTemp3.setText(timeStmp + "\n" + instant.timezone);
+                    //mTemp3.setText(timeStmp + "\n" + instant.timezone);
                     params.put("timestamp", timeStmp);
                     String token = sharedPreferences.getString("token", "");
                     client.addHeader("Authorization", "Token " + token);
@@ -293,7 +271,33 @@ public class HomePage extends Activity{
                         startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
-                .setNegativeButton("Piss Off", new DialogInterface.OnClickListener() {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void buildAlertMessageCheckInternet() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Signal Report failed to send. Please check your internet connection.")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void buildAlertMessageLimitReached() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You have exceeded the daily limit of 50 Signal Reports. Please try again tomorrow.")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         dialog.cancel();
                     }

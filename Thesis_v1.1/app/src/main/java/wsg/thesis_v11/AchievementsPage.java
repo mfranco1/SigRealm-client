@@ -34,7 +34,16 @@ public class AchievementsPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.achievements_page_activity);
 
-        Button back = (Button) findViewById(R.id.backButton);
+        Button mLeaderBoardsButton = (Button) findViewById(R.id.leader_boards_button_b);
+        mLeaderBoardsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),LeaderboardsPage.class));
+                overridePendingTransition(0,0);
+            }
+        });
+
+        Button back = (Button) findViewById(R.id.homebutton_b);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

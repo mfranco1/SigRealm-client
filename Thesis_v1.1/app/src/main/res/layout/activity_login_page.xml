@@ -50,9 +50,9 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:background="#dddadada"
+                android:background="#dadada"
                 android:layout_marginTop="40dp"
-                android:textColor="#ff000000"
+                android:textColor="#888888"
                 android:layout_gravity="center_horizontal"/>
 
             <EditText
@@ -66,9 +66,9 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:background="#dddadada"
+                android:background="#dadada"
                 android:layout_marginTop="14dp"
-                android:textColor="#ff000000"
+                android:textColor="#888888"
                 android:layout_gravity="center_horizontal"/>
 
             <Button

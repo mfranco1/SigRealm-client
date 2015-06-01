@@ -10,10 +10,53 @@
     android:background="#ffffffff"
     >android:background="@drawable/ls_background3"
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/topbar"
+        android:layout_marginBottom="40dp">
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:text="Home"
+            android:id="@+id/homebutton"
+            android:background="@drawable/mainbutton"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:textColor="#ffffffff" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".40"
+            android:text="Leaderboards"
+            android:id="@+id/leader_boards_button"
+            android:background="@drawable/roundgradientbutton"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textColor="#ffffffff" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".40"
+            android:text="Achievements"
+            android:id="@+id/achievements_button"
+            android:background="@drawable/roundgradientbutton"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textColor="#ffffffff" />
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView2" >
+        android:id="@+id/scrollView2"
+        android:layout_below="@+id/topbar">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -22,181 +65,97 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-
-                        <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Leader Boards"
-                            android:id="@+id/leader_boards_button"
-                            android:background="@drawable/roundbutton"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:layout_marginTop="24dp"
-                            android:textColor="#ffffffff" />
-
-                        <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Achievements"
-                            android:id="@+id/achievements_button"
-                            android:background="@drawable/roundbutton"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:layout_marginTop="14dp"
-                            android:textColor="#ffffffff" />
-
-                        <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Profile (WIP)"
-                            android:id="@+id/profile_button"
-                            android:background="#cfff6600"
-                            android:layout_marginTop="14dp" />
-
-                        <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Story (WIP)"
-                            android:id="@+id/story_button"
-                            android:layout_marginTop="14dp"
-                            android:background="#cf5fc1ef" />
-
-                        <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="About (WIP)"
-                            android:id="@+id/about_button"
-                            android:layout_marginTop="14dp"
-                            android:background="#cfff6600" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="fill_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="right"
-                        android:layout_marginLeft="12dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/imageView" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tempSS"
-                            android:background="@drawable/roundtext"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:textColor="#ffffffff"
-                            android:text="Signal Strength (Dbm):"
-                            android:layout_marginTop="24dp"
-                            android:phoneNumber="true"
-                            android:layout_marginLeft="18dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tempGPS"
-                            android:background="@drawable/roundtext"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:textColor="#ffffffff"
-                            android:text="Coordinates (Lat/Long):"
-                            android:layout_marginTop="14dp"
-                            android:phoneNumber="true"
-                            android:layout_marginLeft="18dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tempDT"
-                            android:background="@drawable/roundtext"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:textColor="#ffffffff"
-                            android:text="YYYY/MM/DD/hh/mm:"
-                            android:layout_marginTop="14dp"
-                            android:phoneNumber="false"
-                            android:layout_marginLeft="18dp"
-                            android:password="false" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tempNetProvider"
-                            android:background="@drawable/roundtext"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:textColor="#ffffffff"
-                            android:text="Network Provider: "
-                            android:layout_marginTop="14dp"
-                            android:phoneNumber="false"
-                            android:layout_marginLeft="18dp"
-                            android:password="false" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tempPts"
-                            android:background="@drawable/roundtext"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:textColor="#ffffffff"
-                            android:text="Points: 0"
-                            android:layout_marginTop="14dp"
-                            android:phoneNumber="false"
-                            android:layout_marginLeft="18dp"
-                            android:password="false" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Signal Report Status: "
-                            android:id="@+id/tempStatus"
-                            android:background="@drawable/roundtext"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:textColor="#ffffffff"
-                            android:layout_marginTop="14dp"
-                            android:phoneNumber="false"
-                            android:layout_marginLeft="18dp"
-                            android:password="false"/>
-
-                    </LinearLayout>
-                </LinearLayout>
+                android:layout_height="fill_parent"
+                >
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp">
+                    android:layout_marginTop="0dp">
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tempSS"
+                        android:background="@drawable/signal"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="#888888"
+                        android:text="Signal Strength (Dbm):"
+                        android:layout_marginTop="14dp"
+                        android:phoneNumber="true"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tempGPS"
+                        android:background="@drawable/gpscoord"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="#888888"
+                        android:text="Coordinates (Lat/Long):"
+                        android:layout_marginTop="14dp"
+                        android:phoneNumber="true"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tempNetProvider"
+                        android:background="@drawable/provider"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="#888888"
+                        android:text="Network Provider: "
+                        android:layout_marginTop="14dp"
+                        android:phoneNumber="false"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:password="false" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tempPts"
+                        android:background="@drawable/point"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="#888888"
+                        android:text="Points: 0"
+                        android:layout_marginTop="14dp"
+                        android:phoneNumber="false"
+                        android:password="false"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="24dp" />
 
                     <Button
-                        android:layout_width="match_parent"
+                        android:layout_width="230dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
                         android:text="SEND SIGNAL"
                         android:id="@+id/signal_report_button"
                         android:background="@drawable/roundbutton"
+                        android:layout_marginTop="14dp"
                         android:textColor="#ffffffff" />
 
                     <Button
-                        android:layout_width="fill_parent"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="LOGOUT"
                         android:id="@+id/logout_button"
                         android:background="@drawable/roundbutton"
@@ -204,13 +163,14 @@
                         android:textColor="#ffffffff" />
 
                     <ImageView
-                        android:layout_width="340dp"
-                        android:layout_height="120dp"
+                        android:layout_width="280dp"
+                        android:layout_height="90dp"
                         android:id="@+id/Logo"
                         android:src="@drawable/logo"
                         android:layout_gravity="center"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="60dp"
                         />
+
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
